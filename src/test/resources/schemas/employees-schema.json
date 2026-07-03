@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "success": {
+      "type": "boolean"
+    },
+    "message": {
+      "type": "string"
+    },
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "email": { "type": "string" },
+          "department": { "type": "string" },
+          "status": { "type": "string" }
+        },
+        "required": [
+          "id",
+          "name",
+          "email",
+          "department",
+          "status"
+        ]
+      }
+    }
+  },
+  "required": [
+    "success",
+    "message",
+    "data"
+  ]
+}

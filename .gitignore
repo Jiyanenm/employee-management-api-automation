@@ -57,7 +57,7 @@ surefire-reports/
 # =========================
 firebase-service-account.json
 serviceAccountKey.json
-*.json
+
 
 # BUT if you store configs safely, exclude only sensitive ones:
 # (You can adjust this depending on your setup)
