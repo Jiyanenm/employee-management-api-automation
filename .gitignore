@@ -1,0 +1,74 @@
+# =========================
+# Java / Maven
+# =========================
+target/
+*.jar
+*.war
+*.ear
+*.class
+
+# Maven wrapper logs
+.mvn/wrapper/maven-wrapper.jar
+
+# =========================
+# IDEs (IntelliJ / Eclipse / VS Code)
+# =========================
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.classpath
+.project
+.factorypath
+
+# =========================
+# OS Files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Logs
+# =========================
+*.log
+logs/
+
+# =========================
+# Allure Reports
+# =========================
+allure-results/
+allure-report/
+
+# =========================
+# Test Reports
+# =========================
+test-output/
+surefire-reports/
+
+# =========================
+# Environment Variables
+# =========================
+.env
+
+# =========================
+# Firebase / Secrets (VERY IMPORTANT)
+# =========================
+firebase-service-account.json
+serviceAccountKey.json
+*.json
+
+# BUT if you store configs safely, exclude only sensitive ones:
+# (You can adjust this depending on your setup)
+
+# =========================
+# Spring Boot
+# =========================
+application-local.properties
+application-dev.properties
+
+# =========================
+# Docker (if added later)
+# =========================
+docker-compose.override.yml
