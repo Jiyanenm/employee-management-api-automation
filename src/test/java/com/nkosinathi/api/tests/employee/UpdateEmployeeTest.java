@@ -61,5 +61,11 @@ public class UpdateEmployeeTest extends BaseTest {
                 .body("data.email", equalTo(updatedEmployee.getEmail()))
                 .body("data.department", equalTo(updatedEmployee.getDepartment()))
                 .body("data.status", equalTo(updatedEmployee.getStatus()));
+        validateSchema(
+                "schemas/update-employee-schema.json",
+                getResponse.asString());
+
+
+
     }
 }

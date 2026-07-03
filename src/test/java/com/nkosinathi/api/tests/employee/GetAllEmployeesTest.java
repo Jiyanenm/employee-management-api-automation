@@ -36,9 +36,6 @@ public class GetAllEmployeesTest extends BaseTest {
                 .body("data", not(empty()))
                 .body(matchesJsonSchemaInClasspath("schemas/employees-schema.json"));
 
-        System.out.println(
-                GetAllEmployeesTest.class.getClassLoader()
-                        .getResource("schemas/employees-schema.json")
-        );
+        validateSchema("schemas/employees-schema.json",response.asString());
     }
 }

@@ -6,6 +6,11 @@ import io.qameta.allure.*;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 
+@Epic("Employee Management API")
+@Feature("Employee CRUD")
+@Severity(SeverityLevel.CRITICAL)
+@Story("Regression Testing")
+@Owner("Nkosinathi Jiyane")
 @Suite
 @SelectClasses({
         CreateEmployeeTest.class,
@@ -16,10 +21,6 @@ import org.junit.platform.suite.api.Suite;
         SearchEmployeeTest.class,
         CreateEmployeeNegativeTest.class
 })
-@Epic("Employee Management API")
-@Feature("Employee CRUD")
-@Severity(SeverityLevel.CRITICAL)
-@Story("Regression Testing")
-@Owner("Nkosinathi Jiyane")
+
 public class EmployeeRegressionTest {
 }

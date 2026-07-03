@@ -38,9 +38,12 @@ public class CreateEmployeeTest extends BaseTest {
         // Assert
         response.then()
                 .statusCode(201)
-                .body(matchesJsonSchemaInClasspath("schemas/create-employee-schema.json"))
                 .body("success", equalTo(true))
                 .body("message", equalTo("Employee created successfully."))
                 .body("data", notNullValue());
+        validateSchema(
+                "schemas/create-employee-schema.json",
+                response.asString()
+        );
     }
 }

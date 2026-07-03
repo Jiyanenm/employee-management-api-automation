@@ -65,6 +65,10 @@ public class SearchEmployeeTest extends BaseTest {
                 .statusCode(200)
                 .body("success", equalTo(true))
                 .body("data.department", hasItem("Information technology"));
+
+        validateSchema(
+                "schemas/search-employee-schema.json",
+                response.asString());
     }
 //    @Test
 //    @DisplayName("Verify search returns no results for an unknown employee")

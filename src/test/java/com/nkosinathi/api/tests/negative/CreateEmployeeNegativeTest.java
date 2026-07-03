@@ -37,6 +37,10 @@ public class CreateEmployeeNegativeTest extends BaseTest {
         if (response.jsonPath().get("success") != null) {
             response.then().body("success", equalTo(false));
         }
+        validateSchema(
+                "schemas/error-schema.json",
+                response.asString()
+        );
     }
 
     @Test
@@ -60,6 +64,10 @@ public class CreateEmployeeNegativeTest extends BaseTest {
         if (response.jsonPath().get("success") != null) {
             response.then().body("success", equalTo(false));
         }
+        validateSchema(
+                "schemas/error-schema.json",
+                response.asString()
+        );
     }
 
     @Test
@@ -83,6 +91,10 @@ public class CreateEmployeeNegativeTest extends BaseTest {
         if (response.jsonPath().get("success") != null) {
             response.then().body("success", equalTo(false));
         }
+        validateSchema(
+                "schemas/error-schema.json",
+                response.asString()
+        );
     }
 
     @Test
@@ -106,6 +118,10 @@ public class CreateEmployeeNegativeTest extends BaseTest {
         if (response.jsonPath().get("success") != null) {
             response.then().body("success", equalTo(false));
         }
+        validateSchema(
+                "schemas/error-schema.json",
+                response.asString()
+        );
     }
 
     @Test
@@ -129,6 +145,10 @@ public class CreateEmployeeNegativeTest extends BaseTest {
         if (response.jsonPath().get("success") != null) {
             response.then().body("success", equalTo(false));
         }
+        validateSchema(
+                "schemas/error-schema.json",
+                response.asString()
+        );
     }
 
     @Test
@@ -152,5 +172,9 @@ public class CreateEmployeeNegativeTest extends BaseTest {
         if (response.jsonPath().get("success") != null) {
             response.then().body("success", equalTo(false));
         }
+        validateSchema(
+                "schemas/error-schema.json",
+                response.asString()
+        );
     }
 }

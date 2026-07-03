@@ -37,12 +37,16 @@ public class GetEmployeeTest extends BaseTest {
         // Assert
         response.then()
                 .statusCode(200)
-                .body(matchesJsonSchemaInClasspath("schemas/employee-schema.json"))
                 .body("success", equalTo(true))
                 .body("data.id", equalTo(employeeId))
                 .body("data.name", equalTo(employee.getName()))
                 .body("data.email", equalTo(employee.getEmail()))
                 .body("data.department", equalTo(employee.getDepartment()))
                 .body("data.status", equalTo(employee.getStatus()));
+
+        validateSchema(
+                "schemas/employee-schema.json",
+                response.asString()
+        );
     }
 }

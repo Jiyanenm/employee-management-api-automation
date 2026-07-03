@@ -34,5 +34,10 @@ public class DeleteEmployeeTest extends BaseTest {
                 .statusCode(200)
                 .body("success", equalTo(true))
                 .body("message", equalTo("Employee deleted successfully."));
+
+        validateSchema(
+                "schemas/delete-employee-schema.json",
+                deleteResponse.asString()
+        );
     }
 }
