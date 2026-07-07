@@ -1,168 +1,389 @@
-# 🚀 Employee Management API
+# Employee Management API Automation Framework
 
-<div align="center">
-
-A Production-Ready RESTful Employee Management API built with Java, Spring Boot & Firebase Firestore.
-
-🌐 Live API: https://employee-management-api-1-j5k2.onrender.com
-
-</div>
+A scalable and maintainable API automation framework for testing the Employee Management REST APIs using **Java**, **Rest Assured**, **TestNG**, and **Maven**.
 
 ---
 
-## 📖 Overview
+## Features
 
-This project is a **Spring Boot-based Employee Management System** that provides full CRUD operations, validation, negative testing, and automated API regression testing using **JUnit 5, RestAssured, and Allure Reports**.
-
-It also includes a **CI/CD pipeline using GitHub Actions** for automated testing and reporting.
-
----
-
-## ✨ Features
-
-- Create, Read, Update, Delete Employees
-- Search Employee by ID / Name
-- Firebase Firestore Integration
-- Input Validation & Exception Handling
-- Negative Test Scenarios
-- Automated Regression Suite
-- Allure Reporting
-- CI/CD Pipeline (GitHub Actions)
+- REST API automation using Rest Assured
+- TestNG test execution
+- Maven project management
+- JSON schema validation
+- Request and response logging
+- POJO-based request payloads
+- Environment-specific configuration
+- Extent Reports integration
+- Allure Reports integration
+- Data-driven testing
+- Retry mechanism for failed tests
+- Parallel test execution
+- CI/CD ready (Jenkins/GitHub Actions)
+- Utility classes for reusable methods
 
 ---
 
-## 🛠 Tech Stack
+## Technology Stack
 
-- Java 17
-- Spring Boot
-- Firebase Firestore
-- JUnit 5
-- RestAssured
-- Allure Reports
-- Maven
-- GitHub Actions (CI/CD)
+| Technology | Version |
+|------------|----------|
+| Java | 17+ |
+| Maven | Latest |
+| Rest Assured | 5.x |
+| TestNG | 7.x |
+| Jackson | Latest |
+| Allure Reports | Latest |
+| Extent Reports | Latest |
+| Log4j2 | Latest |
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
-com.nkosinathi.employeemanagement
+```
+EmployeeManagementAPIFramework
 │
-├── controller
-├── service
-├── repository
-├── model
-├── dto
-├── config
-├── exception
-└── tests
-├── employee
-├── negative
-└── regression
-
+├── src
+│   ├── main
+│   │   ├── java
+│   │   │   ├── base
+│   │   │   ├── clients
+│   │   │   ├── config
+│   │   │   ├── constants
+│   │   │   ├── models
+│   │   │   ├── utils
+│   │   │   └── listeners
+│   │   │
+│   │   └── resources
+│   │       ├── config.properties
+│   │       └── log4j2.xml
+│   │
+│   └── test
+│       ├── java
+│       │   ├── tests
+│       │   ├── dataProviders
+│       │   └── schemas
+│       │
+│       └── resources
+│           └── testData.json
+│
+├── reports
+├── allure-results
+├── test-output
+├── pom.xml
+├── testng.xml
+└── README.md
+```
 
 ---
 
-## 🚀 API Endpoints
+## Framework Design
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST   | /employees | Create employee |
-| GET    | /employees/{id} | Get employee by ID |
-| GET    | /employees | Get all employees |
-| PUT    | /employees/{id} | Update employee |
-| DELETE | /employees/{id} | Delete employee |
-| GET    | /employees/search?name= | Search employee |
+The framework follows a layered architecture.
+
+```
+Test Classes
+      │
+      ▼
+API Client Layer
+      │
+      ▼
+Base API Methods
+      │
+      ▼
+Rest Assured
+      │
+      ▼
+Employee Management API
+```
 
 ---
 
-## 🧪 Running Tests Locally
+## Prerequisites
 
-### Run all tests
+- Java JDK 17 or later
+- Maven
+- Git
+- IDE (IntelliJ IDEA or Eclipse)
 
-bash mvn clean test 
-mvn clean test -Dgroups=regression
+Verify installation:
 
-## Running Tests Locally
+```bash
+java -version
+mvn -version
+```
 
-mvn allure:report
+---
 
-Open report - mvn allure:serve
+## Installation
 
-## CI/CD Pipeline (GitHub Actions)
+Clone the repository.
 
-This project includes automated CI/CD using GitHub Actions.
+```bash
+git clone https://github.com/your-org/employee-management-api-framework.git
+```
 
-Workflow file: .github/workflows/employee-api-ci.yml
+Navigate to the project.
 
-## CI/CD Pipeline (GitHub Actions)
-On every push or pull request to main branch:
+```bash
+cd employee-management-api-framework
+```
 
-Checkout repository
-Setup Java 17
-Run Maven tests
-Execute regression suite
-Generate Allure results
-Upload test artifacts
+Install dependencies.
 
-Example GitHub Actions Workflow :
+```bash
+mvn clean install
+```
 
-name: Employee API CI/CD Pipeline
+---
 
-on:
-push:
-branches: [main]
-pull_request:
-branches: [main]
+## Configuration
 
-jobs:
-test:
-runs-on: ubuntu-latest
+Update the configuration file.
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+```
+src/main/resources/config.properties
+```
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
+Example:
 
-      - name: Run Tests
-        run: mvn clean test
+```properties
+baseUrl=https://api.company.com
+username=admin
+password=password
+environment=QA
+```
 
-      - name: Generate Allure Report
-        run: mvn allure:report
+---
 
-      - name: Upload Allure Results
-        uses: actions/upload-artifact@v4
-        with:
-          name: allure-results
-          path: target/allure-results
+## Running Tests
 
-## CI/CD Pipeline (GitHub Actions)
+Run all tests.
 
-After running pipeline:
+```bash
+mvn clean test
+```
 
-Go to GitHub repository
-Click Actions tab
-Select latest workflow run
-Scroll down to Artifacts
-Download:
-allure-results
+Run a TestNG suite.
 
-## CI/CD Pipeline (GitHub Actions)
+```bash
+mvn test -DsuiteXmlFile=testng.xml
+```
 
-mvn allure:serve
+Run a single test class.
 
-OR:
+```bash
+mvn test -Dtest=EmployeeAPITest
+```
 
-allure generate target/allure-results -o allure-report --clean
-allure open allure-report
+Run tests in parallel.
 
-## 👤 Author
+```xml
+<suite parallel="methods" thread-count="5">
+```
 
-Nkosinathi Jiyane
-QA Engineer | SDET (Java + API Automation)
+---
 
+## API Coverage
+
+Current automated APIs include:
+
+- Create Employee
+- Get Employee
+- Get All Employees
+- Update Employee
+- Delete Employee
+- Search Employee
+- Authentication
+- Authorization
+- Negative Scenarios
+- Validation Scenarios
+
+---
+
+## Validation Covered
+
+- HTTP Status Codes
+- Response Time
+- Headers
+- Response Body
+- JSON Schema Validation
+- Authentication
+- Error Messages
+- Data Integrity
+
+---
+
+## Reporting
+
+### Extent Reports
+
+Generated after execution.
+
+```
+reports/ExtentReport.html
+```
+
+---
+
+### Allure Reports
+
+Generate report.
+
+```bash
+allure serve allure-results
+```
+
+---
+
+## Logging
+
+Log4j2 is used for logging.
+
+Logs include:
+
+- Request
+- Response
+- Headers
+- Payload
+- Execution Details
+- Errors
+
+---
+
+## Data Driven Testing
+
+Supports:
+
+- JSON
+- Excel
+- CSV
+- TestNG DataProvider
+
+---
+
+## Sample Test Flow
+
+```
+Authenticate User
+        │
+        ▼
+Create Employee
+        │
+        ▼
+Validate Response
+        │
+        ▼
+Retrieve Employee
+        │
+        ▼
+Update Employee
+        │
+        ▼
+Delete Employee
+        │
+        ▼
+Validate Deletion
+```
+
+---
+
+## CI/CD Integration
+
+Compatible with:
+
+- Jenkins
+- GitHub Actions
+- Azure DevOps
+- GitLab CI
+
+Example:
+
+```bash
+mvn clean test
+```
+
+Publish:
+
+- Extent Report
+- Allure Report
+- TestNG Results
+
+---
+
+## Best Practices
+
+- Keep test data external.
+- Use reusable API clients.
+- Validate every response.
+- Avoid hardcoded values.
+- Maintain environment configurations separately.
+- Use POJOs instead of raw JSON.
+- Keep assertions meaningful.
+- Follow naming conventions.
+
+---
+
+## Future Enhancements
+
+- Docker Support
+- Kubernetes Integration
+- Contract Testing
+- Performance Testing
+- OAuth2 Support
+- API Mocking
+- Database Validation
+- Swagger Validation
+
+---
+
+## Troubleshooting
+
+### Dependency Issues
+
+```bash
+mvn clean install -U
+```
+
+### Clear Reports
+
+```bash
+mvn clean
+```
+
+### Skip Tests
+
+```bash
+mvn clean install -DskipTests
+```
+
+---
+
+## Contributing
+
+1. Fork the repository.
+2. Create a feature branch.
+3. Commit your changes.
+4. Push to your branch.
+5. Create a Pull Request.
+
+---
+
+## License
+
+This project is licensed under the MIT License.
+
+---
+
+## Author
+
+API Automation Framework
+
+Built using:
+
+- Java
+- Rest Assured
+- TestNG
+- Maven
+- Allure Reports
+- Extent Reports
