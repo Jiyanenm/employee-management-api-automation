@@ -372,6 +372,79 @@ mvn clean install -DskipTests
 
 ---
 
+## 🧠 AI Agent Capabilities
+
+- The implemented AI Agent analyzes failed test executions and provides intelligent diagnostics.
+
+- Failure Analysis
+
+- The AI Agent reviews:
+
+- API endpoint
+- HTTP method
+- Request payload
+- Response payload
+- Expected values
+- Actual values
+- Assertion failures
+- Schema validation errors
+- Example AI Diagnosis
+- Test Failure
+- 
+- Expected:
+Employee updated successfully.
+
+Actual:
+Employee retrieved successfully.
+AI Agent Analysis
+The PUT request completed successfully.
+
+- The failure occurred because the GET response was validated
+using the update assertion.
+
+- Recommendation:
+- Use a retrieval assertion for GET employee requests.
+🏗️ Framework Architecture
+┌──────────────────┐
+│   JUnit Tests     │
+└────────┬─────────┘
+│
+▼
+┌──────────────────┐
+│ Employee Steps   │
+└────────┬─────────┘
+│
+▼
+┌──────────────────┐
+│   RestAssured    │
+└────────┬─────────┘
+│
+▼
+┌──────────────────┐
+│ Employee API     │
+└────────┬─────────┘
+│
+▼
+┌──────────────────┐
+│ Assertions Layer │
+└────────┬─────────┘
+│
+Failure?
+│
+▼
+┌──────────────────┐
+│   AI Agent       │
+│ Failure Analysis │
+└────────┬─────────┘
+│
+▼
+┌──────────────────┐
+│ Allure Report    │
+└──────────────────┘
+
+
+
+
 ## License
 
 This project is licensed under the MIT License.

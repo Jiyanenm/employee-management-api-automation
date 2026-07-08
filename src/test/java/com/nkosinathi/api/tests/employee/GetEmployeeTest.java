@@ -1,5 +1,8 @@
 package com.nkosinathi.api.tests.employee;
 
+import com.nkosinathi.api.assertions.AIAssertions;
+import com.nkosinathi.api.assertions.ResponseAssertions;
+import com.nkosinathi.api.assertions.SchemaAssertions;
 import com.nkosinathi.api.base.BaseTest;
 import com.nkosinathi.api.models.EmployeeRequest;
 import com.nkosinathi.api.steps.EmployeeSteps;
@@ -35,16 +38,11 @@ public class GetEmployeeTest extends BaseTest {
         response.prettyPrint();
 
         // Assert
-        response.then()
-                .statusCode(200)
-                .body("success", equalTo(true))
-                .body("data.id", equalTo(employeeId))
-                .body("data.name", equalTo(employee.getName()))
-                .body("data.email", equalTo(employee.getEmail()))
-                .body("data.department", equalTo(employee.getDepartment()))
-                .body("data.status", equalTo(employee.getStatus()));
+        AIAssertions.verifyStatus(response, 200);
 
-        validateSchema(
+        ResponseAssertions.verifyEmployees(response);
+
+        SchemaAssertions.verifySchema(
                 "schemas/employee-schema.json",
                 response.asString()
         );

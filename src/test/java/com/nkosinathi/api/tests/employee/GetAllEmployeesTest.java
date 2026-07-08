@@ -1,5 +1,8 @@
 package com.nkosinathi.api.tests.employee;
 
+import com.nkosinathi.api.assertions.AIAssertions;
+import com.nkosinathi.api.assertions.ResponseAssertions;
+import com.nkosinathi.api.assertions.SchemaAssertions;
 import com.nkosinathi.api.base.BaseTest;
 import com.nkosinathi.api.client.EmployeeClient;
 import io.qameta.allure.*;
@@ -28,14 +31,13 @@ public class GetAllEmployeesTest extends BaseTest {
         response.prettyPrint();
 
         // Assert
-        response.then()
-                .statusCode(200)
-                .body("success", equalTo(true))
-                .body("message", equalTo("Employees retrieved successfully."))
-                .body("data", notNullValue())
-                .body("data", not(empty()))
-                .body(matchesJsonSchemaInClasspath("schemas/employees-schema.json"));
+        AIAssertions.verifyStatus(response, 200);
 
-        validateSchema("schemas/employees-schema.json",response.asString());
+        ResponseAssertions.verifyEmployees(response);
+
+        SchemaAssertions.verifySchema(
+                "schemas/employees-schema.json",
+                response.asString()
+        );
     }
 }

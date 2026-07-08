@@ -1,5 +1,8 @@
 package com.nkosinathi.api.tests.employee;
 
+import com.nkosinathi.api.assertions.AIAssertions;
+import com.nkosinathi.api.assertions.ResponseAssertions;
+import com.nkosinathi.api.assertions.SchemaAssertions;
 import com.nkosinathi.api.base.BaseTest;
 import com.nkosinathi.api.models.EmployeeRequest;
 import com.nkosinathi.api.steps.EmployeeSteps;
@@ -8,8 +11,6 @@ import io.qameta.allure.*;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import static org.hamcrest.Matchers.equalTo;
 
 @Epic("Employee Management API")
 @Feature("Employee CRUD")
@@ -22,12 +23,13 @@ public class UpdateEmployeeTest extends BaseTest {
     @DisplayName("Verify employee can be updated successfully")
     void shouldUpdateEmployeeSuccessfully() {
 
-        // Arrange
+        // Arrange - Create employee first
         EmployeeRequest originalEmployee =
                 EmployeeDataFactory.createValidEmployee();
 
         String employeeId =
                 EmployeeSteps.createEmployee(originalEmployee);
+
 
         EmployeeRequest updatedEmployee =
                 EmployeeDataFactory.createEmployee(
@@ -37,35 +39,57 @@ public class UpdateEmployeeTest extends BaseTest {
                         "Inactive"
                 );
 
-        // Act
+
+        // Act - Update employee
         Response updateResponse =
-                EmployeeSteps.updateEmployee(employeeId, updatedEmployee);
+                EmployeeSteps.updateEmployee(
+                        employeeId,
+                        updatedEmployee
+                );
 
         updateResponse.prettyPrint();
 
-        // Assert update response
-        updateResponse.then()
-                .statusCode(200)
-                .body("success", equalTo(true))
-                .body("message", equalTo("Employee updated successfully."));
 
-        // Verify persisted changes
+        // Assert - PUT response
+        AIAssertions.verifyStatus(
+                updateResponse,
+                200,
+                "/api/employees/" + employeeId,
+                "PUT",
+                updatedEmployee
+        );
+
+        ResponseAssertions.verifyEmployeeUpdated(updateResponse);
+
+        SchemaAssertions.verifySchema(
+                "schemas/update-employee-schema.json",
+                updateResponse.asString()
+        );
+
+
+        // Verify persisted changes using GET
         Response getResponse =
                 EmployeeSteps.getEmployee(employeeId);
 
-        getResponse.then()
-                .statusCode(200)
-                .body("success", equalTo(true))
-                .body("data.id", equalTo(employeeId))
-                .body("data.name", equalTo(updatedEmployee.getName()))
-                .body("data.email", equalTo(updatedEmployee.getEmail()))
-                .body("data.department", equalTo(updatedEmployee.getDepartment()))
-                .body("data.status", equalTo(updatedEmployee.getStatus()));
-        validateSchema(
-                "schemas/update-employee-schema.json",
-                getResponse.asString());
+        getResponse.prettyPrint();
 
 
+        AIAssertions.verifyStatus(
+                getResponse,
+                200,
+                "/api/employees/" + employeeId,
+                "GET",
+                null
+        );
 
+        ResponseAssertions.verifyEmployeeRetrieved(
+                getResponse,
+                updatedEmployee
+        );
+
+        SchemaAssertions.verifySchema(
+                "schemas/employee-schema.json",
+                getResponse.asString()
+        );
     }
 }

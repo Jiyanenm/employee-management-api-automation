@@ -1,5 +1,8 @@
 package com.nkosinathi.api.tests.employee;
 
+import com.nkosinathi.api.assertions.AIAssertions;
+import com.nkosinathi.api.assertions.ResponseAssertions;
+import com.nkosinathi.api.assertions.SchemaAssertions;
 import com.nkosinathi.api.base.BaseTest;
 import com.nkosinathi.api.models.EmployeeRequest;
 import com.nkosinathi.api.steps.EmployeeSteps;
@@ -8,8 +11,6 @@ import io.qameta.allure.*;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import static org.hamcrest.Matchers.equalTo;
 
 @Epic("Employee Management API")
 @Feature("Employee CRUD")
@@ -23,19 +24,30 @@ public class DeleteEmployeeTest extends BaseTest {
     void shouldDeleteEmployeeSuccessfully() {
 
         // Arrange
-        EmployeeRequest employee = EmployeeDataFactory.createValidEmployee();
-        String employeeId = EmployeeSteps.createEmployee(employee);
+        EmployeeRequest employee =
+                EmployeeDataFactory.createValidEmployee();
+
+        String employeeId =
+                EmployeeSteps.createEmployee(employee);
 
         // Act
-        Response deleteResponse = EmployeeSteps.deleteEmployee(employeeId);
+        Response deleteResponse =
+                EmployeeSteps.deleteEmployee(employeeId);
 
-        // Assert
-        deleteResponse.then()
-                .statusCode(200)
-                .body("success", equalTo(true))
-                .body("message", equalTo("Employee deleted successfully."));
+        // AI Status Assertion
+        AIAssertions.verifyStatus(
+                deleteResponse,
+                200,
+                "/api/employees/" + employeeId,
+                "DELETE",
+                null
+        );
 
-        validateSchema(
+        AIAssertions.verifyStatus(deleteResponse, 200);
+
+        ResponseAssertions.verifyEmployeeDeleted(deleteResponse);
+
+        SchemaAssertions.verifySchema(
                 "schemas/delete-employee-schema.json",
                 deleteResponse.asString()
         );

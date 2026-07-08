@@ -1,0 +1,17 @@
+[
+  {
+    "name": "API Validation Errors",
+    "matchedStatuses": ["failed"],
+    "messageRegex": ".*400.*"
+  },
+  {
+    "name": "Server Errors",
+    "matchedStatuses": ["failed"],
+    "messageRegex": ".*500.*"
+  },
+  {
+    "name": "Assertion Failures",
+    "matchedStatuses": ["failed"],
+    "traceRegex": ".*AssertionError.*"
+  }
+]
