@@ -3,6 +3,9 @@
 A scalable and maintainable API automation framework for testing the Employee Management REST APIs using **Java**, **Rest Assured**, **TestNG**, and **Maven**.
 
 ---
+## Swagger
+
+- https://employee-management-api-2-0ygx.onrender.com/swagger-ui/index.html
 
 ## Features
 
