@@ -35,7 +35,6 @@
   "required": [
     "success",
     "message",
-    "data",
-    "timestamp"
+    "data"
   ]
 }

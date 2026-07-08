@@ -1,12 +1,16 @@
 package com.nkosinathi.api.models;
 
+import java.time.Instant;
+
 public class ApiResponse<T> {
 
     private boolean success;
     private String message;
     private T data;
 
+
     public ApiResponse() {
+
     }
 
     public boolean isSuccess() {
@@ -32,4 +36,5 @@ public class ApiResponse<T> {
     public void setData(T data) {
         this.data = data;
     }
+
 }
